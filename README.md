@@ -2,9 +2,9 @@
 
 ## Background
 
-This Project means to understand the mechanism of spam emails.
+The code is to get Spams' header for further analysis.
 
 ## Get Email Header information
 
- I write a python code to get all the email from my gmail Spam folders.
-The code is here.
+I write this python code to get all the email from my Gmail Spam folders. 
+The code is [here](https://github.com/j84lee/Email-Header-Parsing/blob/master/emalprasing.ipynb).
