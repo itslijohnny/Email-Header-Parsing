@@ -104,3 +104,6 @@ venv.bak/
 .mypy_cache/
 account.txt
 *.csv
+key.txt
+emalprasing.ipynb copy
+Untitled.ipynb
