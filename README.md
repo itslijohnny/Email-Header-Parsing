@@ -11,6 +11,7 @@ The script uses ```imaplib``` library to get email headers from a Gmail account 
 
 ### Setup connection
 
+For this part of the script, I used **Python**
 1. Import the required libraries.
 
 ```python
@@ -97,7 +98,7 @@ for a in emaillist:
         header['DKIM']=re.findall(r'\bdkim=\S*\b',str(header))[0].split('=')[1]
     else:
         header['DKIM']=''
-    
+
     address = "http://api.ipstack.com/"+header['IP']+"?access_key="+key    
     response = requests.get(address)
     ipjason = response.text
@@ -127,7 +128,7 @@ with open(fn+'.csv', 'w') as output_file:
 ## Data Explortion
 
 ### Import the data to R
-For This part of the script, I used **R language**  to explore the data and the build model. Therefore We need to import CSV to R first.
+For this part of the script, I used **R language**  to explore the data and the build model. Therefore We need to import CSV to R first.
 
 ```R
 em <- read.csv("gamilspamedited.csv",stringsAsFactors = F)
@@ -138,20 +139,20 @@ em <- read.csv("gamilspamedited.csv",stringsAsFactors = F)
      $ Subject            : chr  
      $ Return.Path.Address: chr  
      $ Date               : chr  
-     $ Reply.To.Address   : chr 
+     $ Reply.To.Address   : chr
      $ Content.Type       : chr  
-     $ From.Address       : chr 
+     $ From.Address       : chr
      $ IP                 : chr  
      $ SPF                : chr  
      $ DMARC              : chr  
-     $ DKIM               : chr 
+     $ DKIM               : chr
      $ Country            : chr  
      $ Regin              : chr  
      $ City               : chr  
      $ IPv6.Indicator     : int  
      $ CAT                : chr  
      $ Reputation         : chr  
-    
+
 After cleaning the data, there are 272 entries and 18 columns left.
 
 ### Preprocess the date
@@ -359,18 +360,18 @@ summary(logit.reg)
 ```
 
 
-    
+
     Call:
-    glm(formula = CAT ~ Message + DMARC + Country + DKIM + Reputation + 
+    glm(formula = CAT ~ Message + DMARC + Country + DKIM + Reputation +
         replyvsfrom + rpavsfrom + Weekday, family = "binomial", data = train.df)
-    
-    Deviance Residuals: 
+
+    Deviance Residuals:
          Min        1Q    Median        3Q       Max  
     -3.09465  -0.18311  -0.04540  -0.00298   2.73259  
-    
+
     Coefficients:
                    Estimate Std. Error z value Pr(>|z|)    
-    (Intercept)  -4.880e+00  1.891e+00  -2.581 0.009848 ** 
+    (Intercept)  -4.880e+00  1.891e+00  -2.581 0.009848 **
     Message      -2.864e-05  1.803e-05  -1.589 0.112145    
     DMARC2       -1.101e+01  2.400e+03  -0.005 0.996340    
     DMARC3        6.306e+00  1.445e+00   4.364 1.28e-05 ***
@@ -387,15 +388,15 @@ summary(logit.reg)
     Weekday7      2.898e+00  1.634e+00   1.773 0.076224 .  
     ---
     Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    
+
     (Dispersion parameter for binomial family taken to be 1)
-    
+
         Null deviance: 172.126  on 162  degrees of freedom
     Residual deviance:  56.569  on 148  degrees of freedom
     AIC: 86.569
-    
+
     Number of Fisher Scoring iterations: 15
-    
+
 
 
 #### Predction Validation
@@ -411,18 +412,18 @@ print(coords(r, x = "best"))
 ```
 
     Type 'citation("pROC")' for a citation.
-    
-    Attaching package: 'pROC'
-    
-    The following objects are masked from 'package:stats':
-    
-        cov, smooth, var
-    
-    
 
-      threshold specificity sensitivity 
-      0.3222076   0.9625000   0.9655172 
-    
+    Attaching package: 'pROC'
+
+    The following objects are masked from 'package:stats':
+
+        cov, smooth, var
+
+
+
+      threshold specificity sensitivity
+      0.3222076   0.9625000   0.9655172
+
 
 
 ![png](images/output_30_2.png)
@@ -436,24 +437,24 @@ confusionMatrix(factor(pred), factor(valid.df$CAT), positive = "1")
 
     Loading required package: lattice
     Loading required package: ggplot2
-    
+
 
 
     Confusion Matrix and Statistics
-    
+
               Reference
     Prediction  0  1
              0 77  1
              1  3 28
-                                              
+
                    Accuracy : 0.9633          
                      95% CI : (0.9087, 0.9899)
         No Information Rate : 0.7339          
         P-Value [Acc > NIR] : 2.433e-10       
-                                              
+
                       Kappa : 0.9081          
      Mcnemar's Test P-Value : 0.6171          
-                                              
+
                 Sensitivity : 0.9655          
                 Specificity : 0.9625          
              Pos Pred Value : 0.9032          
@@ -462,7 +463,5 @@ confusionMatrix(factor(pred), factor(valid.df$CAT), positive = "1")
              Detection Rate : 0.2569          
        Detection Prevalence : 0.2844          
           Balanced Accuracy : 0.9640          
-                                              
-           'Positive' Class : 1               
-                                              
 
+           'Positive' Class : 1               
